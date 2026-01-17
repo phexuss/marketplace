@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const ProductFilterSchema = z.object({
   category: z.string().optional(),
@@ -11,8 +11,8 @@ export const ProductFilterSchema = z.object({
   sizes: z.array(z.string()).optional(),
 
   sort: z
-    .enum(["newest", "price_asc", "price_desc", "rating"])
-    .default("newest"),
+    .enum(['newest', 'price_asc', 'price_desc', 'rating'])
+    .default('newest'),
 });
 
 export type ProductFilterInput = z.infer<typeof ProductFilterSchema>;

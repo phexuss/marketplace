@@ -1,8 +1,8 @@
-import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
-import { PrismaClient } from "../src/generated/prisma/client";
-import "dotenv/config";
-import slugify from "slugify";
+import { PrismaPg } from '@prisma/adapter-pg';
+import { Pool } from 'pg';
+import { PrismaClient } from '../src/generated/prisma/client';
+import 'dotenv/config';
+import slugify from 'slugify';
 
 // 1. Настройка адаптера (Обязательно для Prisma v7 без Accelerate)
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
@@ -11,11 +11,11 @@ const adapter = new PrismaPg(pool);
 // 2. Инициализация клиента с адаптером
 const prisma = new PrismaClient({
   adapter,
-  log: ["query", "error"],
+  log: ['query', 'error'],
 });
 
 async function main() {
-  console.log("🚀 Начинаем процесс сидинга (Prisma v7 + Adapters)...");
+  console.log('🚀 Начинаем процесс сидинга (Prisma v7 + Adapters)...');
 
   // 1. Очистка базы (в порядке, учитывающем связи)
   // Удаляем в обратном порядке, чтобы не нарушить целостность
@@ -27,20 +27,20 @@ async function main() {
   await prisma.color.deleteMany();
   await prisma.size.deleteMany();
 
-  console.log("🧹 База очищена");
+  console.log('🧹 База очищена');
 
   // 2. Подготовка справочников
-  const categories = ["T-shirts", "Shorts", "Shirts", "Hoodie", "Jeans"];
-  const styles = ["Casual", "Formal", "Party", "Gym"];
+  const categories = ['T-shirts', 'Shorts', 'Shirts', 'Hoodie', 'Jeans'];
+  const styles = ['Casual', 'Formal', 'Party', 'Gym'];
   const colorData = [
-    { name: "Green", hex: "#00C12B" },
-    { name: "Red", hex: "#F50606" },
-    { name: "Yellow", hex: "#F5DD06" },
-    { name: "Orange", hex: "#F57906" },
-    { name: "Blue", hex: "#063AF5" },
-    { name: "Black", hex: "#000000" },
+    { name: 'Green', hex: '#00C12B' },
+    { name: 'Red', hex: '#F50606' },
+    { name: 'Yellow', hex: '#F5DD06' },
+    { name: 'Orange', hex: '#F57906' },
+    { name: 'Blue', hex: '#063AF5' },
+    { name: 'Black', hex: '#000000' },
   ];
-  const sizeNames = ["XX-Small", "Small", "Medium", "Large", "X-Large"];
+  const sizeNames = ['XX-Small', 'Small', 'Medium', 'Large', 'X-Large'];
 
   // 3. Создание записей (используем create, так как мы почистили базу)
   const createdCats = await Promise.all(
@@ -60,13 +60,13 @@ async function main() {
   );
 
   // 4. Генерация товаров (по 5 на категорию)
-  console.log("📦 Генерация товаров...");
+  console.log('📦 Генерация товаров...');
 
   for (const cat of createdCats) {
     for (let i = 1; i <= 5; i++) {
       // Генерируем красивое имя
-      const suffixes = ["Alpha", "Beta", "Premium", "Classic", "Urban"];
-      const baseName = cat.name.endsWith("s")
+      const suffixes = ['Alpha', 'Beta', 'Premium', 'Classic', 'Urban'];
+      const baseName = cat.name.endsWith('s')
         ? cat.name.slice(0, -1)
         : cat.name;
       const name = `${baseName} ${suffixes[i - 1]}`;
@@ -111,12 +111,12 @@ async function main() {
     }
   }
 
-  console.log("✅ Сидинг успешно завершен! Создано 25 товаров.");
+  console.log('✅ Сидинг успешно завершен! Создано 25 товаров.');
 }
 
 main()
   .catch((e) => {
-    console.error("❌ Ошибка при сидинге:", e);
+    console.error('❌ Ошибка при сидинге:', e);
     process.exit(1);
   })
   .finally(async () => {

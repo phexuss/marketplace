@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Encode_Sans_Expanded, Reddit_Sans } from 'next/font/google';
 import './globals.css';
-import Header from '@/components/layout/header';
+import Header from '@/components/layout/header/header';
 import TopBanner from '@/components/layout/top-banner';
 
 const mainFont = Reddit_Sans({

@@ -1,4 +1,4 @@
-import MobileNav from '@/components/layout/mobile-nav';
+import MobileNav from '@/components/layout/header/mobile-nav';
 
 const Header = () => {
   return <MobileNav />;

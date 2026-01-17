@@ -1,0 +1,127 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String?
+  email     String   @unique
+  password  String?
+  image     String?
+  orders    Order[]
+  reviews   Review[] // Связь: один юзер может оставить много отзывов
+  createdAt DateTime @default(now())
+}
+
+model Product {
+  id          Int    @id @default(autoincrement())
+  name        String
+  slug        String @unique // URL-friendly имя (например, "one-life-graphic-t-shirt")
+  description String @db.Text
+  price       Float
+  oldPrice    Float?
+  discount    Int?
+  stock       Int    @default(0) // Контроль остатков на складе
+  rating      Float  @default(0.0) // Средний рейтинг (можно обновлять при новом отзыве)
+
+  images String[]
+
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  styleId Int
+  style   DressStyle @relation(fields: [styleId], references: [id])
+
+  colors Color[] @relation("ProductColors")
+  sizes  Size[]  @relation("ProductSizes")
+
+  reviews    Review[] // Связь с отзывами
+  orderItems OrderItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Новая модель отзывов
+model Review {
+  id      Int     @id @default(autoincrement())
+  rating  Int // Оценка (1-5)
+  comment String? @db.Text
+
+  productId Int
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  products Product[]
+}
+
+model DressStyle {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  products Product[]
+}
+
+model Color {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  hex      String
+  products Product[] @relation("ProductColors")
+}
+
+model Size {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  products Product[] @relation("ProductSizes")
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  total       Float
+  discount    Float       @default(0)
+  deliveryFee Float       @default(15)
+  status      OrderStatus @default(PENDING)
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  items     OrderItem[]
+  createdAt DateTime    @default(now())
+}
+
+model OrderItem {
+  id            Int     @id @default(autoincrement())
+  productId     Int
+  product       Product @relation(fields: [productId], references: [id])
+  orderId       Int
+  order         Order   @relation(fields: [orderId], references: [id])
+  quantity      Int
+  price         Float
+  selectedColor String?
+  selectedSize  String?
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  SHIPPED
+  CANCELLED
+}

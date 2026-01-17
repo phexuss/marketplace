@@ -9,10 +9,7 @@ const navLinks = [
 
 const DesktopNav = () => {
   return (
-    <nav
-      aria-label="Main navigation"
-      className="hidden md:flex items-center"
-    >
+    <nav aria-label="Main navigation" className="hidden md:flex items-center">
       <ul className="flex items-center gap-1 lg:gap-2">
         {navLinks.map((link) => (
           <li key={link.href}>

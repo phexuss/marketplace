@@ -1,7 +1,7 @@
 'use client';
 
 import { ArrowLeft, Search as SearchIcon } from 'lucide-react';
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -15,6 +15,7 @@ import { Input } from '@/components/ui/input';
 export default function Search() {
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
+  const searchId = useId();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,7 +33,7 @@ export default function Search() {
             <button
               type="button"
               aria-label="Open search"
-              className="p-2 text-foreground/80 transition-colors hover:text-foreground cursor-pointer"
+              className="text-foreground/80 transition-colors hover:text-foreground cursor-pointer"
             >
               <SearchIcon strokeWidth={1.75} className="size-5" />
             </button>
@@ -68,30 +69,32 @@ export default function Search() {
           </DialogContent>
         </Dialog>
       </div>
-
-      {/* Desktop Search */}
-      <form
-        role="search"
+      <search
         onSubmit={handleSearch}
-        className="hidden md:flex items-center relative bg-muted rounded-full px-4 w-full h-10 max-w-xs lg:h-12 lg:max-w-md xl:max-w-lg"
+        className="hidden md:flex items-center relative bg-muted rounded-full px-3 w-full h-10 lg:h-11 xl:h-12 xl:px-4"
       >
-        <label htmlFor="desktop-search" className="sr-only">
-          Search for products
-        </label>
-        <SearchIcon
-          className="text-muted-foreground size-4 shrink-0 lg:size-5"
-          strokeWidth={2}
-          aria-hidden="true"
-        />
-        <Input
-          id="desktop-search"
-          name="search"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search for products..."
-          className="w-full h-full bg-transparent border-none shadow-none focus-visible:ring-0 text-sm placeholder:text-muted-foreground lg:text-base"
-        />
-      </form>
+        <form
+          onSubmit={handleSearch}
+          className="flex items-center w-full h-full gap-2 lg:gap-3"
+        >
+          <label htmlFor={searchId} className="sr-only">
+            Search for products
+          </label>
+          <SearchIcon
+            className="text-muted-foreground size-5 shrink-0 lg:size-5.5 xl:size-6"
+            strokeWidth={2}
+            aria-hidden="true"
+          />
+          <Input
+            id={searchId}
+            name="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search for products..."
+            className="w-full h-full bg-transparent border-none shadow-none focus-visible:ring-0 text-sm placeholder:text-muted-foreground lg:text-base truncate px-0"
+          />
+        </form>
+      </search>
     </div>
   );
 }

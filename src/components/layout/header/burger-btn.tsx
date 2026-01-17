@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
@@ -25,8 +26,10 @@ export function BurgerButton() {
       </SheetTrigger>
 
       <SheetContent side="left" className="w-75 sm:w-90 px-5 py-3.5 font-main">
-        <SheetTitle className="sr-only">Main Navigation</SheetTitle>
-
+        <SheetTitle>Navigation</SheetTitle>
+        <SheetDescription className="sr-only">
+          Navigate through the store
+        </SheetDescription>
         <nav className="mt-6">
           <ul className="flex flex-col gap-4">
             <li>

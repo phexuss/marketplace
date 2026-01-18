@@ -1,6 +1,7 @@
 'use client';
 
 import { LogOut } from 'lucide-react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { signOut } from '@/lib/auth-client';
 
@@ -23,7 +24,7 @@ export default function DashboardClient({ user }: { user: User }) {
   };
 
   return (
-    <main className="max-w-md h-screen flex items-center justify-center flex-col mx-auto p-6 space-y-6 text-neutral-900 bg-white">
+    <main className=" flex items-center justify-center flex-col p-6 space-y-6 text-neutral-900 bg-white">
       <div className="text-center space-y-2">
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
         <p className="text-neutral-500">
@@ -40,6 +41,15 @@ export default function DashboardClient({ user }: { user: User }) {
         <LogOut size={18} />
         Sign Out
       </button>
+
+      <Link href={'/verify-email'}>
+        <button
+          type="button"
+          className="bg-amber-300 text-xl hover:bg-amber-600 duration-200"
+        >
+          (Temporary) Verify Email #TODO Сделать ее скрытой if(session)
+        </button>
+      </Link>
     </main>
   );
 }

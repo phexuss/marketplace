@@ -11,7 +11,7 @@ export default async function AdminPage() {
   return (
     <div className="p-10">
       <h1 className="text-3xl font-bold font-display mb-8">Admin Panel</h1>
-
+      <h2>Authorized as {session?.user.email}</h2>
       <div className="rounded-xl border border-neutral-200 bg-white shadow-sm overflow-hidden">
         <div className="p-4 bg-neutral-50 border-b border-neutral-200">
           <h2 className="font-semibold">All Users ({users.length})</h2>

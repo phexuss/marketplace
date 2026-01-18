@@ -12,7 +12,7 @@ const HeaderActions = () => {
         <ShoppingCart className="size-5 md:size-6" strokeWidth={1.75} />
       </Link>
       <Link
-        href="/profile"
+        href="/dashboard"
         aria-label="User profile"
         className="p-2 text-foreground/80 transition-colors hover:text-foreground"
       >

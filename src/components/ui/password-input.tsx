@@ -13,10 +13,16 @@ const requirements = [
     regex: new RegExp(`.{${PASSWORD_RULES.min},}`),
     text: `At least ${PASSWORD_RULES.min} characters`,
   },
-  { regex: PASSWORD_RULES.lowercase, text: 'At least 1 lowercase letter' },
-  { regex: PASSWORD_RULES.uppercase, text: 'At least 1 uppercase letter' },
-  { regex: PASSWORD_RULES.number, text: 'At least 1 number' },
-  { regex: PASSWORD_RULES.special, text: 'At least 1 special character' },
+  {
+    regex: PASSWORD_RULES.lowercase.regex,
+    text: PASSWORD_RULES.lowercase.message,
+  },
+  {
+    regex: PASSWORD_RULES.uppercase.regex,
+    text: PASSWORD_RULES.uppercase.message,
+  },
+  { regex: PASSWORD_RULES.number.regex, text: PASSWORD_RULES.number.message },
+  { regex: PASSWORD_RULES.special.regex, text: PASSWORD_RULES.special.message },
 ];
 
 interface PasswordInputProps

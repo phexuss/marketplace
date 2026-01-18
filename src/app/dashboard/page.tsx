@@ -1,16 +1,10 @@
-import { headers } from 'next/headers';
-import { redirect } from 'next/navigation';
-import { auth } from '@/lib/auth';
+import { validateSession } from '@/lib/get-session';
 import DashboardClient from './dashboard-client';
 
 export default async function DashboardPage() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await validateSession(true);
 
-  if (!session) {
-    redirect('/sign-up');
-  }
+  if (!session) return null;
 
   return <DashboardClient user={session.user} />;
 }

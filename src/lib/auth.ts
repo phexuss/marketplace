@@ -25,7 +25,7 @@ export const auth = betterAuth({
       await sendEmail({
         to: user.email,
         subject: 'Verify your email',
-        text: `Click the link below to verify your email adress: \n ${url}`,
+        text: `Click the link below to verify your email address: \n ${url}`,
       });
     },
   },

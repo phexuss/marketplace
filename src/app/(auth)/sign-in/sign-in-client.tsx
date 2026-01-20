@@ -2,12 +2,16 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useId, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { signIn } from '@/lib/auth-client';
+import { Spinner } from '@/components/ui/spinner';
+import { authClient, signIn } from '@/lib/auth-client';
 import { cn } from '@/lib/utils';
 import { type SignInValues, signInSchema } from '@/lib/validation';
 
@@ -15,6 +19,7 @@ export default function SignInPage() {
   const router = useRouter();
   const [serverError, setServerError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const emailId = useId();
   const passwordId = useId();
@@ -41,6 +46,21 @@ export default function SignInPage() {
       router.push('/dashboard');
     }
   };
+
+  async function handleSocialSignIn(provider: 'google') {
+    setServerError(null);
+    setLoading(true);
+
+    const { error } = await authClient.signIn.social({
+      provider,
+      callbackURL: '/dashboard',
+    });
+
+    setLoading(false);
+    if (error) {
+      setServerError(error.message || 'Something went wrong...');
+    }
+  }
 
   return (
     <main className="max-w-md mx-auto p-6 space-y-6 text-neutral-900 bg-white">
@@ -89,12 +109,12 @@ export default function SignInPage() {
             >
               Password
             </Label>
-            <a
+            <Link
               href="/forgot-password"
               className="text-xs text-neutral-500 hover:text-black transition-colors"
             >
               Forgot password?
-            </a>
+            </Link>
           </div>
           <div className="relative">
             <Input
@@ -130,20 +150,39 @@ export default function SignInPage() {
           )}
         </div>
 
-        <button
+        <Button
+          className="w-full bg-black text-white font-medium rounded-md px-4 hover:bg-neutral-800 disabled:opacity-50 transition-colors cursor-pointer mt-2 py-5"
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-black text-white font-medium rounded-md px-4 py-2.5 hover:bg-neutral-800 disabled:opacity-50 transition-colors cursor-pointer mt-2"
         >
           {isSubmitting ? 'Signing in...' : 'Sign In'}
-        </button>
+        </Button>
+        <div className="flex justify-center">
+          <Button
+            className="flex flex-row gap-2.5 py-5 w-full cursor-pointer"
+            onClick={() => handleSocialSignIn('google')}
+          >
+            <Image
+              src="/google.svg"
+              alt="Google Icon"
+              width={18}
+              height={18}
+              priority
+              className="brightness-0 invert"
+            />
+            {loading ? <Spinner /> : 'Sign in with Google'}
+          </Button>
+        </div>
       </form>
 
       <footer className="text-center text-sm text-neutral-500">
         Don&apos;t have an account?{' '}
-        <a href="/sign-up" className="text-black font-medium hover:underline">
+        <Link
+          href="/sign-up"
+          className="text-black font-medium hover:underline"
+        >
           Sign up
-        </a>
+        </Link>
       </footer>
     </main>
   );

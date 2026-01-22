@@ -1,5 +1,5 @@
 import { headers } from 'next/headers';
-import { notFound, redirect } from 'next/navigation';
+import { redirect, unauthorized } from 'next/navigation';
 import { auth } from '@/lib/auth';
 
 export async function validateSession(
@@ -12,14 +12,14 @@ export async function validateSession(
 
   if (requiredRole) {
     if (!session || session.user.role !== requiredRole) {
-      notFound();
+      unauthorized();
     }
     return session;
   }
 
   if (shouldBeAuthenticated) {
     if (!session) {
-      redirect('/sign-in');
+      unauthorized();
     }
     return session;
   }

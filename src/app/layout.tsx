@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Encode_Sans_Expanded, Reddit_Sans } from 'next/font/google';
 import './globals.css';
+import { Toaster } from '@/components/ui/sonner';
 
 const mainFont = Reddit_Sans({
   variable: '--font-main',
@@ -29,6 +30,7 @@ export default function RootLayout({
         className={`${mainFont.variable} ${displayFont.variable} antialiased font-main`}
       >
         {children}
+        <Toaster />
       </body>
     </html>
   );

@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useId, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
@@ -17,6 +17,13 @@ import { type SignInValues, signInSchema } from '@/lib/validation';
 
 export default function SignInPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const rawRedirect = searchParams.get('redirect');
+  const redirect =
+    rawRedirect?.startsWith('/') && !rawRedirect.startsWith('//')
+      ? rawRedirect
+      : '/dashboard';
+
   const [serverError, setServerError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -43,7 +50,7 @@ export default function SignInPage() {
     if (res.error) {
       setServerError(res.error.message || 'Invalid email or password.');
     } else {
-      router.push('/dashboard');
+      router.push(redirect);
     }
   };
 
@@ -53,7 +60,7 @@ export default function SignInPage() {
 
     const { error } = await authClient.signIn.social({
       provider,
-      callbackURL: '/dashboard',
+      callbackURL: redirect,
     });
 
     setLoading(false);
@@ -132,7 +139,7 @@ export default function SignInPage() {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-0 top-0 flex h-full w-10 items-center justify-center text-neutral-400 hover:text-black transition-colors cursor-pointer"
+              className="absolute right-0 top-0 flex h-full w-10 items-center justify-center text-neutral-400 hover:text-black transition-colors cursor-pointer "
               aria-label={showPassword ? 'Hide password' : 'Show password'}
             >
               {showPassword ? (

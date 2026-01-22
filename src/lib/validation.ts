@@ -30,3 +30,23 @@ export const signInSchema = z.object({
 
 export type SignUpValues = z.infer<typeof signUpSchema>;
 export type SignInValues = z.infer<typeof signInSchema>;
+
+export const updateNameSchema = signUpSchema.pick({ name: true });
+export type UpdateNameValues = z.infer<typeof updateNameSchema>;
+
+export const updateEmailSchema = z.object({
+  email: z.email('Invalid email').toLowerCase().trim(),
+});
+export type UpdateEmailValues = z.infer<typeof updateEmailSchema>;
+
+export const changePasswordSchema = z.object({
+  currentPassword: z.string().min(1, 'Enter your current password'),
+  newPassword: z
+    .string()
+    .min(PASSWORD_RULES.min, `Min ${PASSWORD_RULES.min} characters`)
+    .regex(PASSWORD_RULES.uppercase.regex, PASSWORD_RULES.uppercase.message)
+    .regex(PASSWORD_RULES.lowercase.regex, PASSWORD_RULES.lowercase.message)
+    .regex(PASSWORD_RULES.number.regex, PASSWORD_RULES.number.message)
+    .regex(PASSWORD_RULES.special.regex, PASSWORD_RULES.special.message),
+});
+export type ChangePasswordValues = z.infer<typeof changePasswordSchema>;

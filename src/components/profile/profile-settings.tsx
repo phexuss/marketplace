@@ -1,5 +1,4 @@
 import LogoutEverywhereButton from '@/components/profile/logout-everywhere-button';
-import { Button } from '@/components/ui/button';
 import EmailSection from './email-section';
 import NameSection from './name-section';
 import PasswordSection from './password-section';

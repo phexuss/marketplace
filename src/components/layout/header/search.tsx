@@ -26,7 +26,6 @@ export default function Search() {
 
   return (
     <div className="flex flex-1 min-w-0">
-      {/* Mobile Search */}
       <div className="flex ml-auto md:hidden">
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>

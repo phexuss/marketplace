@@ -78,10 +78,18 @@ model Verification {
   @@map("verification")
 }
 
+enum Gender {
+  MALE
+  FEMALE
+  UNISEX
+}
+
 model Product {
   id          Int    @id @default(autoincrement())
   name        String
   slug        String @unique
+  brand       String @default("ZARA")
+  gender      Gender @default(UNISEX)
   description String @db.Text
   price       Float
   oldPrice    Float?

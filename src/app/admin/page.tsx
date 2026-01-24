@@ -1,3 +1,4 @@
+import AddProductForm from '@/components/admin/add-product-form';
 import { validateSession } from '@/lib/get-session';
 import prisma from '@/lib/prisma';
 
@@ -8,10 +9,24 @@ export default async function AdminPage() {
     orderBy: { createdAt: 'desc' },
   });
 
+  const [categories, styles, colors, sizes] = await Promise.all([
+    prisma.category.findMany({ orderBy: { name: 'asc' } }),
+    prisma.dressStyle.findMany({ orderBy: { name: 'asc' } }),
+    prisma.color.findMany(),
+    prisma.size.findMany(),
+  ]);
+
   return (
     <div className="p-10">
       <h1 className="text-3xl font-bold font-display mb-8">Admin Panel</h1>
+
       <h2>Authorized as {session?.user.email}</h2>
+      <AddProductForm
+        categories={categories}
+        styles={styles}
+        colors={colors}
+        sizes={sizes}
+      />
       <div className="rounded-xl border border-neutral-200 bg-white shadow-sm overflow-hidden">
         <div className="p-4 bg-neutral-50 border-b border-neutral-200">
           <h2 className="font-semibold">All Users ({users.length})</h2>

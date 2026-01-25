@@ -1,5 +1,5 @@
 import ProductList from '@/components/products/product-list';
-import Hero from '@/components/sections/hero';
+import Hero from '@/components/sections/hero/hero';
 
 export default function Home() {
   return (

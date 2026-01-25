@@ -28,7 +28,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <Link href={`/products/${product.slug}`} className="group flex flex-col">
-      <div className="relative aspect-square w-full overflow-hidden  rounded-2xl md:rounded-4xl bg-[#e3e7eb]">
+      <div className="relative aspect-square w-full overflow-hidden  rounded-2xl md:rounded-4xl bg-hero-bg">
         <Image
           src={mainImage}
           alt={product.name}

@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 
 const Hero = () => {
   return (
-    <section className="bg-[#F2F0F1] overflow-hidden">
+    <section className="bg-[#e3e7eb] overflow-hidden">
       <div className="flex flex-col px-4 pt-10 items-center gap-5 lg:flex-row lg:px-16 lg:pt-0">
         <div className="flex flex-col items-center md:items-start text-center md:text-left lg:flex-1 lg:py-20">
           <h1 className="text-4xl md:text-6xl font-extrabold font-display leading-tight">
@@ -57,7 +57,7 @@ const Hero = () => {
 
         <div className="w-full lg:flex-1 lg:self-end">
           <Image
-            src="/hero.jpg"
+            src="/hero.png"
             alt="Models wearing stylish clothes"
             width={1000}
             height={1000}

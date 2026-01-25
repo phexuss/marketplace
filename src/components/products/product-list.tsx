@@ -1,4 +1,5 @@
 import ProductCard from '@/components/products/product-card';
+import { Button } from '@/components/ui/button';
 import prisma from '@/lib/prisma';
 import { ProductCarousel } from './product-carousel';
 
@@ -24,10 +25,18 @@ const ProductList = async ({ title, limit = 4 }: ProductListProps) => {
         <ProductCarousel products={products} />
       </div>
 
-      <div className="hidden md:grid md:grid-cols-4 gap-6 lg:gap-8">
+      <div className="hidden md:grid md:grid-cols-4 lg:gap-5 px-24">
         {products.map((item) => (
           <ProductCard key={item.id} product={item} />
         ))}
+      </div>
+      <div className="flex items-center justify-center mt-9">
+        <Button
+          variant="ghost"
+          className="bg-transparent text-black text-sm md:text-[1rem] px-13.5 py-4 border border-[#E6E6E6] rounded-full"
+        >
+          View All
+        </Button>
       </div>
     </section>
   );

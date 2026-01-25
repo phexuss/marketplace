@@ -19,13 +19,13 @@ export const ProductCarousel = ({ products }: ProductCarouselProps) => {
         align: 'start',
         dragFree: true,
       }}
-      className="w-full px-3.5"
+      className="w-full px-3.5 md:ml-5"
     >
-      <CarouselContent className="-ml-3 sm:-ml-4 gap-3">
+      <CarouselContent className="-ml-3 gap-3">
         {products.map((product) => (
           <CarouselItem
             key={product.id}
-            className="pl-3 sm:pl-4 basis-[45%] sm:basis-[40%]"
+            className="pl-3 basis-[45%] sm:basis-[40%]"
           >
             <ProductCard product={product} />
           </CarouselItem>

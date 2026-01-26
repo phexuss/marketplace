@@ -137,8 +137,8 @@ const FiltersContent = memo(
           <AccordionContent className="pt-3.5 pb-6 px-2">
             <Slider
               min={0}
-              max={2000}
-              step={50}
+              max={200}
+              step={2.5}
               value={priceRange}
               onValueChange={setPriceRange}
             />
@@ -245,7 +245,7 @@ const FiltersContent = memo(
       </Accordion>
 
       <Button
-        className="w-full rounded-full font-bold h-12 mt-6 mb-2"
+        className="w-full rounded-full font-bold h-12 mt-6 mb-2 cursor-pointer"
         onClick={handleApply}
       >
         Apply Filter

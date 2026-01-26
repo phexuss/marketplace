@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import ProductDetails from '@/components/products/product-details';
 import ProductGallery from '@/components/products/product-gallery';

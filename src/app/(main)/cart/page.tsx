@@ -53,7 +53,7 @@ const CartPage = () => {
                 key={item.cartItemId}
                 className="flex gap-4 pb-4 border-b border-black/10 last:border-0 last:pb-0"
               >
-                <div className="relative w-24 h-24 md:w-32 md:h-32 bg-[#e3e7eb] rounded-[13px] overflow-hidden shrink-0">
+                <div className="relative w-24 h-24 md:w-32 md:h-32 bg-hero-bg rounded-[13px] overflow-hidden shrink-0">
                   <Link href={item.slug ? `/products/${item.slug}` : '#'}>
                     <Image
                       src={item.image}

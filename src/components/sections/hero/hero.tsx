@@ -1,10 +1,11 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import HeroBrands from '@/components/sections/hero/hero-brands';
 import { Button } from '@/components/ui/button';
 
 const Hero = () => {
   return (
-    <section className="bg-[#e3e7eb] overflow-hidden">
+    <section className="bg-hero-bg overflow-hidden">
       <div className="flex flex-col px-4 pt-10 items-center gap-5 lg:flex-row lg:px-16 lg:pt-0">
         <div className="flex flex-col items-center md:items-start text-center md:text-left lg:flex-1 lg:py-20">
           <h1 className="text-4xl md:text-6xl font-extrabold font-display leading-tight">
@@ -15,14 +16,14 @@ const Hero = () => {
             designed to bring out your individuality and cater to your sense of
             style.
           </p>
-
-          <Button
-            variant="default"
-            className="text-base rounded-full py-6 px-14 mt-6 w-full sm:w-max hover:bg-neutral-800 active:bg-neutral-700 transition-colors cursor-pointer"
-          >
-            Shop Now
-          </Button>
-          {/* обернуть в линк позже*/}
+          <Link href="/shop">
+            <Button
+              variant="default"
+              className="text-base rounded-full py-6 px-14 mt-6 w-full sm:w-max hover:bg-neutral-800 active:bg-neutral-700 transition-colors cursor-pointer"
+            >
+              Shop Now
+            </Button>
+          </Link>
 
           <div className="mt-10 grid grid-cols-2 justify-center gap-y-3 md:flex md:flex-wrap md:justify-start md:gap-x-12">
             <div className="relative flex flex-col pr-8">

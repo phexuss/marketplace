@@ -336,7 +336,7 @@ export function ProductFilters({
 
   return (
     <>
-      <div className="md:hidden">
+      <div className="xl:hidden">
         <Sheet>
           <SheetTrigger asChild>
             <Button
@@ -378,7 +378,7 @@ export function ProductFilters({
         </Sheet>
       </div>
 
-      <div className="hidden md:block w-73.75 border rounded-4xl p-6 h-fit sticky top-24 shadow-sm">
+      <div className="hidden xl:block w-full border rounded-4xl p-6 h-fit sticky top-24 shadow-sm">
         <FiltersContent {...sharedProps} />
       </div>
     </>

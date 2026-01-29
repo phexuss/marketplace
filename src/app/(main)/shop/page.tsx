@@ -58,12 +58,13 @@ const ShopPage = async ({ searchParams }: ShopPageProps) => {
   });
 
   return (
-    <div className="flex px-4 md:px-25 flex-col pb-20">
+    <div className="flex px-4 md:px-12.5 xl:px-25 flex-col pb-20">
       <Separator />
       <div className="py-2">
         <DynamicBreadcrumbs steps={breadcrumbSteps} />
       </div>
-      <div className="flex justify-between items-center my-6 md:hidden">
+
+      <div className="flex justify-between items-center my-6 xl:hidden">
         <h2 className="uppercase font-bold font-main text-3xl">{pageTitle}</h2>
         <ProductFilters
           categories={categories}
@@ -72,8 +73,9 @@ const ShopPage = async ({ searchParams }: ShopPageProps) => {
           styles={styles}
         />
       </div>
-      <div className="flex flex-col md:flex-row gap-5 lg:gap-8 mt-4 text-start">
-        <aside className="hidden md:block w-73.5 shrink-0 ">
+
+      <div className="flex flex-col xl:flex-row gap-5 lg:gap-8 mt-4 text-start">
+        <aside className="hidden xl:block w-73.5 shrink-0">
           <ProductFilters
             categories={categories}
             colors={colors}
@@ -83,8 +85,8 @@ const ShopPage = async ({ searchParams }: ShopPageProps) => {
         </aside>
 
         <main className="flex-1">
-          <div className="hidden md:flex justify-between items-center mb-6">
-            <h2 className="uppercase font-bold font-main text-3xl md:text-4xl text-black">
+          <div className="hidden xl:flex justify-between items-center mb-6">
+            <h2 className="uppercase font-bold font-main text-3xl xl:text-4xl text-black">
               {pageTitle}
             </h2>
             <div className="text-sm text-neutral-400">
@@ -92,7 +94,7 @@ const ShopPage = async ({ searchParams }: ShopPageProps) => {
             </div>
           </div>
 
-          <ProductList products={products} />
+          <ProductList products={products} slider={false} />
         </main>
       </div>
     </div>

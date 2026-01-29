@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 export default function UnauthorizedPage() {
   const pathname = usePathname();
   return (
-    <main className="flex items-center justify-center bg-white p-6 text-neutral-900 mt-20">
+    <main className="flex items-center justify-center bg-white p-6 text-neutral-900 mt-20 mb-40">
       <div className="max-w-md w-full space-y-8 text-center">
         <div className="flex justify-center">
           <div className="p-4 bg-red-50 rounded-3xl">

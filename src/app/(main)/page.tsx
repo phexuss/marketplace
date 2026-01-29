@@ -1,16 +1,56 @@
 import ProductList from '@/components/products/product-list';
+import Footer from '@/components/sections/footer/footer';
 import Hero from '@/components/sections/hero/hero';
+import { Separator } from '@/components/ui/separator';
+import prisma from '@/lib/prisma';
 
-export default function Home() {
+export default async function Home() {
+  const [newArrivals, topSelling] = await Promise.all([
+    prisma.product.findMany({
+      take: 4,
+      orderBy: { createdAt: 'desc' },
+      include: {
+        category: true,
+        colors: true,
+        sizes: true,
+      },
+    }),
+    prisma.product.findMany({
+      take: 4,
+      orderBy: { price: 'asc' },
+      include: {
+        category: true,
+        colors: true,
+        sizes: true,
+      },
+    }),
+  ]);
+
   return (
     <div>
-      <Hero />
-      <div className="flex justify-center pt-12.5">
-        <h2 className="text-[2rem] md:text-5xl uppercase font-bold font-display">
-          new arrivals
-        </h2>
-      </div>
-      <ProductList />
+      <main>
+        <Hero />
+        <div className="xl:px-25">
+          <ProductList
+            title="new arrivals"
+            products={newArrivals}
+            slider={true}
+          />
+          <div className="flex xl:px-25">
+            <Separator />
+          </div>
+          <ProductList
+            title="top selling"
+            products={topSelling}
+            slider={true}
+          />
+        </div>
+        <div className="flex xl:px-25 pb-10 xl:pb-20">
+          <Separator />
+        </div>
+      </main>
+
+      <Footer />
     </div>
   );
 }

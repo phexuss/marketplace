@@ -45,12 +45,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <StarRating rating={product.rating} />
         </div>
         <div className="flex items-center gap-1.5 sm:gap-2 md:gap-2.5 mt-1 sm:mt-2 flex-wrap">
-          <span className="font-bold text-base sm:text-lg md:text-2xl text-black">
+          <span className="font-semibold text-base sm:text-lg md:text-2xl text-black">
             {formattedPrice}
           </span>
           {formattedOldPrice && (
             <>
-              <span className="font-bold text-base sm:text-lg md:text-2xl text-black/40 line-through">
+              <span className="font-semibold text-base sm:text-lg md:text-2xl text-black/40 line-through">
                 {formattedOldPrice}
               </span>
               {product.discount && product.discount > 0 && (

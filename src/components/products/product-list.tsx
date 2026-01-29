@@ -9,12 +9,14 @@ interface ProductListProps {
   title?: string;
   limit?: number;
   products?: Product[];
+  slider?: boolean;
 }
 
 const ProductList = async ({
   title,
   limit = 4,
   products: initialProducts,
+  slider = true,
 }: ProductListProps) => {
   const products =
     initialProducts ||
@@ -36,7 +38,7 @@ const ProductList = async ({
   }
 
   return (
-    <section className="py-10 md:py-16">
+    <section className="py-5 md:py-16">
       {title && (
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-center mb-8 md:mb-14 uppercase">
           {title}
@@ -44,10 +46,18 @@ const ProductList = async ({
       )}
 
       <div className="md:hidden px-4">
-        <ProductCarousel products={products} />
+        {slider ? (
+          <ProductCarousel products={products} />
+        ) : (
+          <div className="grid grid-cols-2 gap-4">
+            {products?.map((item) => (
+              <ProductCard key={item.id} product={item} />
+            ))}
+          </div>
+        )}
       </div>
 
-      <div className="hidden md:grid md:grid-cols-4 gap-4 lg:gap-5">
+      <div className="hidden md:grid md:grid-cols-4 gap-4 lg:gap-5 px-2.5">
         {products.map((item) => (
           <ProductCard key={item.id} product={item} />
         ))}

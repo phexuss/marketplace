@@ -1,5 +1,6 @@
 import Header from '@/components/layout/header/header';
 import TopBanner from '@/components/layout/top-banner';
+import Footer from '@/components/sections/footer/footer';
 
 export default function MainLayout({
   children,
@@ -11,6 +12,7 @@ export default function MainLayout({
       <TopBanner />
       <Header />
       <main>{children}</main>
+      <Footer />
     </div>
   );
 }

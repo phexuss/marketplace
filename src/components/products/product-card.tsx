@@ -5,9 +5,10 @@ import type { Product } from '@/generated/prisma/client';
 
 interface ProductCardProps {
   product: Product;
+  isPriority?: boolean;
 }
 
-const ProductCard = ({ product }: ProductCardProps) => {
+const ProductCard = ({ product, isPriority }: ProductCardProps) => {
   const mainImage = product.images?.[0] ?? '/placeholder.jpg';
 
   const formattedPrice = new Intl.NumberFormat('en-US', {
@@ -32,6 +33,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <Image
           src={mainImage}
           alt={product.name}
+          priority={isPriority}
           fill
           className="object-cover transition-transform duration-300 group-hover:scale-90  scale-80"
           sizes="(max-width: 768px) 45vw, 25vw"

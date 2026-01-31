@@ -1,5 +1,4 @@
 import ProductList from '@/components/products/product-list';
-import Footer from '@/components/sections/footer/footer';
 import Hero from '@/components/sections/hero/hero';
 import { Separator } from '@/components/ui/separator';
 import prisma from '@/lib/prisma';
@@ -27,30 +26,22 @@ export default async function Home() {
   ]);
 
   return (
-    <div>
-      <main>
-        <Hero />
-        <div className="xl:px-25">
-          <ProductList
-            title="new arrivals"
-            products={newArrivals}
-            slider={true}
-          />
-          <div className="flex xl:px-25">
-            <Separator />
-          </div>
-          <ProductList
-            title="top selling"
-            products={topSelling}
-            slider={true}
-          />
-        </div>
-        <div className="flex xl:px-25 pb-10 xl:pb-20">
+    <main>
+      <Hero />
+      <div className="xl:px-25">
+        <ProductList
+          title="new arrivals"
+          products={newArrivals}
+          slider={true}
+        />
+        <div className="flex xl:px-25">
           <Separator />
         </div>
-      </main>
-
-      <Footer />
-    </div>
+        <ProductList title="top selling" products={topSelling} slider={true} />
+      </div>
+      <div className="flex xl:px-25 pb-10 xl:pb-20">
+        <Separator />
+      </div>
+    </main>
   );
 }

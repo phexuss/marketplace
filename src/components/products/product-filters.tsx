@@ -343,6 +343,7 @@ export function ProductFilters({
               variant="ghost"
               className="size-11 bg-neutral-100 rounded-full"
             >
+              <span className="sr-only">Open filters</span>
               <Filter className="w-5 h-5" />
             </Button>
           </SheetTrigger>

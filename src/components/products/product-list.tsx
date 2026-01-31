@@ -50,16 +50,20 @@ const ProductList = async ({
           <ProductCarousel products={products} />
         ) : (
           <div className="grid grid-cols-2 gap-4">
-            {products?.map((item) => (
-              <ProductCard key={item.id} product={item} />
+            {products?.map((item, index) => (
+              <ProductCard
+                key={item.id}
+                product={item}
+                isPriority={index < 4}
+              />
             ))}
           </div>
         )}
       </div>
 
       <div className="hidden md:grid md:grid-cols-4 gap-4 lg:gap-5 px-2.5">
-        {products.map((item) => (
-          <ProductCard key={item.id} product={item} />
+        {products.map((item, index) => (
+          <ProductCard key={item.id} product={item} isPriority={index < 4} />
         ))}
       </div>
 

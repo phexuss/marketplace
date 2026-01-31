@@ -24,7 +24,7 @@ const StarRating = ({ rating }: { rating: number }) => {
 
       <span className="text-sm font-bold text-black flex items-center gap-0.5">
         {rating.toFixed(1)}
-        <span className="text-neutral-400 font-medium">/ 5</span>
+        <span className="text-neutral-600 font-medium">/ 5</span>
       </span>
     </div>
   );

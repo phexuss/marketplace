@@ -61,7 +61,7 @@ const ProductList = async ({
         )}
       </div>
 
-      <div className="hidden md:grid md:grid-cols-4 gap-4 lg:gap-5 px-2.5">
+      <div className="hidden md:grid md:grid-cols-3 gap-4 lg:gap-5 px-2.5">
         {products.map((item, index) => (
           <ProductCard key={item.id} product={item} isPriority={index < 4} />
         ))}

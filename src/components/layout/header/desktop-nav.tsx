@@ -3,7 +3,7 @@ import Link from 'next/link';
 const navLinks = [
   { href: '/shop', label: 'Shop' },
   { href: '/on-sale', label: 'On Sale' },
-  { href: '/new-arrivals', label: 'New Arrivals' },
+  { href: '/shop?newArrival=true', label: 'New Arrivals' },
   { href: '/brands', label: 'Brands' },
 ];
 

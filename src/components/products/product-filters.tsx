@@ -53,7 +53,9 @@ interface FiltersContentProps extends ProductFiltersProps {
   selectedSizes: string[];
   selectedStyles: string[];
   priceRange: number[];
+  isNewArrival: boolean;
   setPriceRange: (val: number[]) => void;
+  setIsNewArrival: (val: boolean) => void;
   toggleFilter: (value: string, list: string[], type: string) => void;
   handleApply: () => void;
   isMobile?: boolean;
@@ -81,7 +83,9 @@ const FiltersContent = memo(
     selectedSizes,
     selectedStyles,
     priceRange,
+    isNewArrival,
     setPriceRange,
+    setIsNewArrival,
     toggleFilter,
     handleApply,
     isMobile = false,
@@ -100,6 +104,20 @@ const FiltersContent = memo(
       )}
 
       <div className="flex flex-col gap-2 pb-6">
+        <button
+          type="button"
+          onClick={() => setIsNewArrival(!isNewArrival)}
+          className="flex items-center justify-between w-full py-2 text-neutral-500 hover:text-black transition-colors"
+        >
+          <span
+            className={`text-base transition-all ${isNewArrival ? 'text-black font-bold' : ''}`}
+          >
+            New Arrivals
+          </span>
+          <Check
+            className={`size-4 transition-opacity ${isNewArrival ? 'opacity-100' : 'opacity-0'}`}
+          />
+        </button>
         {categories.map((cat) => {
           const isSelected = selectedCategories.includes(cat.name);
           return (
@@ -269,7 +287,8 @@ export function ProductFilters({
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [selectedStyles, setSelectedStyles] = useState<string[]>([]);
-  const [priceRange, setPriceRange] = useState<number[]>([0, 1000]);
+  const [priceRange, setPriceRange] = useState<number[]>([0, 200]);
+  const [isNewArrival, setIsNewArrival] = useState<boolean>(false);
 
   useEffect(() => {
     const params = qs.parse(searchParams.toString(), { arrayFormat: 'comma' });
@@ -277,9 +296,10 @@ export function ProductFilters({
     setSelectedColors(ensureArray(params.colors));
     setSelectedSizes(ensureArray(params.sizes));
     setSelectedStyles(ensureArray(params.styles));
+    setIsNewArrival(params.newArrival === 'true');
     const min = Number(params.minPrice);
     const max = Number(params.maxPrice);
-    if (min || max) setPriceRange([min || 0, max || 1000]);
+    if (min || max) setPriceRange([min || 0, max || 200]);
   }, [searchParams]);
 
   const toggleFilter = useCallback(
@@ -310,6 +330,7 @@ export function ProductFilters({
       styles: selectedStyles.length ? selectedStyles.join(',') : null,
       minPrice: priceRange[0],
       maxPrice: priceRange[1],
+      newArrival: isNewArrival ? 'true' : null,
     };
     router.push(
       qs.stringifyUrl(
@@ -329,7 +350,9 @@ export function ProductFilters({
     selectedSizes,
     selectedStyles,
     priceRange,
+    isNewArrival,
     setPriceRange,
+    setIsNewArrival,
     toggleFilter,
     handleApply,
   };

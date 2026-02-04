@@ -45,6 +45,13 @@ const ShopPage = async ({ searchParams }: ShopPageProps) => {
     style: inFilter(s.styles),
     colors: someInFilter(s.colors),
     sizes: someInFilter(s.sizes),
+    ...(s.q && {
+      OR: [
+        { name: { contains: s.q, mode: 'insensitive' } },
+        { brand: { contains: s.q, mode: 'insensitive' } },
+        { description: { contains: s.q, mode: 'insensitive' } },
+      ],
+    }),
   };
 
   const products = await prisma.product.findMany({

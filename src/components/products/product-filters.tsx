@@ -289,6 +289,7 @@ export function ProductFilters({
   const [selectedStyles, setSelectedStyles] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<number[]>([0, 200]);
   const [isNewArrival, setIsNewArrival] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string | null>(null);
 
   useEffect(() => {
     const params = qs.parse(searchParams.toString(), { arrayFormat: 'comma' });
@@ -297,6 +298,8 @@ export function ProductFilters({
     setSelectedSizes(ensureArray(params.sizes));
     setSelectedStyles(ensureArray(params.styles));
     setIsNewArrival(params.newArrival === 'true');
+    setSearchQuery((params.q as string) || null);
+
     const min = Number(params.minPrice);
     const max = Number(params.maxPrice);
     if (min || max) setPriceRange([min || 0, max || 200]);
@@ -322,6 +325,7 @@ export function ProductFilters({
 
   const handleApply = () => {
     const query = {
+      q: searchQuery,
       categories: selectedCategories.length
         ? selectedCategories.join(',')
         : null,
@@ -332,6 +336,7 @@ export function ProductFilters({
       maxPrice: priceRange[1],
       newArrival: isNewArrival ? 'true' : null,
     };
+
     router.push(
       qs.stringifyUrl(
         { url: window.location.pathname, query },

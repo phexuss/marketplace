@@ -6,7 +6,7 @@ import prisma from '@/lib/prisma';
 export default async function Home() {
   const [newArrivals, topSelling] = await Promise.all([
     prisma.product.findMany({
-      take: 4,
+      take: 3,
       orderBy: { createdAt: 'desc' },
       include: {
         category: true,
@@ -15,7 +15,7 @@ export default async function Home() {
       },
     }),
     prisma.product.findMany({
-      take: 4,
+      take: 3,
       orderBy: { price: 'asc' },
       include: {
         category: true,

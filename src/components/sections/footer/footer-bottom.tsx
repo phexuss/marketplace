@@ -113,8 +113,18 @@ const FooterBottom = () => {
       <div className="w-full">
         <Separator className="bg-black/10 h-px" />
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 py-6 md:py-8">
-          <p className="text-black/60 text-sm font-normal text-center md:text-left">
-            Shop.co © 2000-2023, All Rights Reserved
+          <p className="text-black/60 text-sm font-normal text-center md:text-left flex flex-col">
+            Shop.co © 2000-2026, All Rights Reserved
+            <span>
+              Developed by{' '}
+              <Link
+                href="https://github.com/phexuss"
+                className="hover:underline underline-offset-3 hover:text-black transition-normal duration-200"
+                target="_blank"
+              >
+                phexuss
+              </Link>
+            </span>
           </p>
 
           <div className="flex items-center gap-3">

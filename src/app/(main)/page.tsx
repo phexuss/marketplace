@@ -1,3 +1,4 @@
+import ProductCategories from '@/components/layout/product-categories';
 import ProductList from '@/components/products/product-list';
 import Hero from '@/components/sections/hero/hero';
 import { Separator } from '@/components/ui/separator';
@@ -38,7 +39,9 @@ export default async function Home() {
           <Separator />
         </div>
         <ProductList title="top selling" products={topSelling} slider={true} />
+        <ProductCategories />
       </div>
+
       <div className="flex xl:px-25 pb-10 xl:pb-20">
         <Separator />
       </div>

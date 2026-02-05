@@ -161,6 +161,8 @@ model Order {
   deliveryFee Float       @default(15)
   status      OrderStatus @default(PENDING)
 
+  stripePaymentIntentId String? @unique
+
   userId String
   user   User   @relation(fields: [userId], references: [id])
 

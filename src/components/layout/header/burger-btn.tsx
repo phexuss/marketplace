@@ -41,13 +41,17 @@ export function BurgerButton() {
                   <AccordionContent>
                     <ul className="flex flex-col gap-3 pl-4 pt-2 text-muted-foreground border-l ml-1">
                       <li>
-                        <Link href="/shop/men">Men's Clothing</Link>
+                        {' '}
+                        <Link href="/shop">All Clothing</Link>
                       </li>
                       <li>
-                        <Link href="/shop/women">Women's Clothing</Link>
+                        <Link href="/shop?categories=Shirt">Shirts</Link>
                       </li>
                       <li>
-                        <Link href="/shop/accessories">Accessories</Link>
+                        <Link href="/shop?categories=Jeans">Jeans</Link>
+                      </li>
+                      <li>
+                        <Link href="/shop?categories=Hoodie">Hoodies</Link>
                       </li>
                     </ul>
                   </AccordionContent>
@@ -62,7 +66,7 @@ export function BurgerButton() {
             </li>
             <li>
               <Link
-                href="/new-arrivals"
+                href="/shop?newArrival=true"
                 className="block text-lg font-medium py-2"
               >
                 New Arrivals

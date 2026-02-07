@@ -4,6 +4,8 @@ import { ArrowRight, Minus, Plus, Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
+import { createCheckoutSession } from '@/app/actions/checkout';
 import { Button } from '@/components/ui/button';
 import { DynamicBreadcrumbs } from '@/components/ui/dynamic-breadcrumbs';
 import { Separator } from '@/components/ui/separator';
@@ -12,6 +14,7 @@ import { useCartStore } from '@/store/cart-store';
 const CartPage = () => {
   const { items, removeItem, updateQuantity } = useCartStore();
   const [mounted, setMounted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => setMounted(true), []);
 
@@ -25,6 +28,29 @@ const CartPage = () => {
   const discount = subtotal * 0.2;
   const delivery = 15;
   const total = subtotal - discount + delivery;
+
+  const handleCheckout = async () => {
+    setIsLoading(true);
+
+    const cartPayload = items.map((item) => ({
+      id: item.id,
+      quantity: item.quantity,
+      size: item.size,
+      color: item.color,
+    }));
+
+    const result = await createCheckoutSession(cartPayload);
+
+    if (result.error) {
+      toast.error(result.error);
+      setIsLoading(false);
+      return;
+    }
+
+    if (result.url) {
+      window.location.href = result.url;
+    }
+  };
 
   return (
     <div className="flex px-4 flex-col md:px-25 pb-20">
@@ -146,9 +172,12 @@ const CartPage = () => {
 
             <Button
               type="button"
-              className="w-full bg-black text-white py-4 rounded-full font-semibold uppercase flex items-center justify-center gap-2 hover:bg-black/80 transition-all cursor-pointer"
+              onClick={handleCheckout}
+              disabled={isLoading}
+              className="w-full bg-black text-white py-4 rounded-full font-semibold uppercase flex items-center justify-center gap-2 hover:bg-black/80 transition-all cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              Checkout <ArrowRight size={20} />
+              {isLoading ? 'Redirecting...' : 'Checkout'}
+              {!isLoading && <ArrowRight size={20} />}
             </Button>
           </div>
         </div>

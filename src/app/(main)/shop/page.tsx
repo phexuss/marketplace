@@ -1,15 +1,30 @@
+import { headers } from 'next/headers';
 import { ProductFilters } from '@/components/products/product-filters';
 import ProductList from '@/components/products/product-list';
+import { ShopPagination } from '@/components/products/shop-pagination';
 import { DynamicBreadcrumbs } from '@/components/ui/dynamic-breadcrumbs';
 import { Separator } from '@/components/ui/separator';
 import type { Prisma } from '@/generated/prisma/client';
 import prisma from '@/lib/prisma';
+
+const PRODUCTS_PER_PAGE_DESKTOP = 9;
+const PRODUCTS_PER_PAGE_MOBILE = 6;
 
 interface ShopPageProps {
   searchParams: Promise<{ [key: string]: string | undefined }>;
 }
 
 const ShopPage = async ({ searchParams }: ShopPageProps) => {
+  const headersList = await headers();
+  const userAgent = headersList.get('user-agent') || '';
+  const isMobile =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      userAgent,
+    );
+  const PRODUCTS_PER_PAGE = isMobile
+    ? PRODUCTS_PER_PAGE_MOBILE
+    : PRODUCTS_PER_PAGE_DESKTOP;
+
   const [categories, colors, sizes, styles] = await Promise.all([
     prisma.category.findMany(),
     prisma.color.findMany(),
@@ -45,6 +60,12 @@ const ShopPage = async ({ searchParams }: ShopPageProps) => {
     style: inFilter(s.styles),
     colors: someInFilter(s.colors),
     sizes: someInFilter(s.sizes),
+    ...(s.onSale === 'true' && {
+      oldPrice: { not: null },
+      AND: {
+        oldPrice: { gt: 0 },
+      },
+    }),
     ...(s.q && {
       OR: [
         { name: { contains: s.q, mode: 'insensitive' } },
@@ -54,15 +75,26 @@ const ShopPage = async ({ searchParams }: ShopPageProps) => {
     }),
   };
 
-  const products = await prisma.product.findMany({
-    where,
-    include: {
-      category: true,
-      colors: true,
-      sizes: true,
-    },
-    orderBy: { createdAt: 'desc' },
-  });
+  const currentPage = Math.max(1, Number(s.page) || 1);
+
+  const [products, totalCount] = await Promise.all([
+    prisma.product.findMany({
+      where,
+      include: {
+        category: true,
+        colors: true,
+        sizes: true,
+      },
+      orderBy: { createdAt: 'desc' },
+      skip: (currentPage - 1) * PRODUCTS_PER_PAGE,
+      take: PRODUCTS_PER_PAGE,
+    }),
+    prisma.product.count({ where }),
+  ]);
+
+  const totalPages = Math.ceil(totalCount / PRODUCTS_PER_PAGE);
+  const startItem = (currentPage - 1) * PRODUCTS_PER_PAGE + 1;
+  const endItem = Math.min(currentPage * PRODUCTS_PER_PAGE, totalCount);
 
   return (
     <div className="flex px-4 md:px-12.5 xl:px-25 flex-col pb-20">
@@ -97,11 +129,12 @@ const ShopPage = async ({ searchParams }: ShopPageProps) => {
               {pageTitle}
             </h2>
             <div className="text-sm text-neutral-400">
-              Showing {products.length} products
+              Showing {startItem}-{endItem} of {totalCount} products
             </div>
           </div>
 
           <ProductList products={products} slider={false} />
+          <ShopPagination totalPages={totalPages} currentPage={currentPage} />
         </main>
       </div>
     </div>

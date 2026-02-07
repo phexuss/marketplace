@@ -99,6 +99,9 @@ model Product {
 
   images String[]
 
+  stripeProductId String?
+  stripePriceId   String?
+
   categoryId Int
   category   Category @relation(fields: [categoryId], references: [id])
 

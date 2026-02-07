@@ -27,6 +27,13 @@ const ProductCard = ({ product, isPriority }: ProductCardProps) => {
       }).format(product.oldPrice)
     : null;
 
+  const discountPercent =
+    product.oldPrice && product.oldPrice > product.price
+      ? Math.round(
+          ((product.oldPrice - product.price) / product.oldPrice) * 100,
+        )
+      : null;
+
   return (
     <Link href={`/products/${product.slug}`} className="group flex flex-col">
       <div className="relative aspect-square w-full overflow-hidden  rounded-2xl md:rounded-4xl bg-hero-bg">
@@ -55,9 +62,9 @@ const ProductCard = ({ product, isPriority }: ProductCardProps) => {
               <span className="font-semibold text-base sm:text-lg md:text-2xl text-black/40 line-through">
                 {formattedOldPrice}
               </span>
-              {product.discount && product.discount > 0 && (
+              {discountPercent && discountPercent > 0 && (
                 <span className="bg-[#FF3333]/10 text-[#FF3333] px-1.5 py-0.5 sm:px-2.5 sm:py-1 md:px-3.5 md:py-1.5 text-[10px] sm:text-xs font-medium rounded-full">
-                  -{product.discount}%
+                  -{discountPercent}%
                 </span>
               )}
             </>

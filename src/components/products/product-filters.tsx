@@ -54,8 +54,10 @@ interface FiltersContentProps extends ProductFiltersProps {
   selectedStyles: string[];
   priceRange: number[];
   isNewArrival: boolean;
+  isOnSale: boolean;
   setPriceRange: (val: number[]) => void;
   setIsNewArrival: (val: boolean) => void;
+  setIsOnSale: (val: boolean) => void;
   toggleFilter: (value: string, list: string[], type: string) => void;
   handleApply: () => void;
   isMobile?: boolean;
@@ -84,8 +86,10 @@ const FiltersContent = memo(
     selectedStyles,
     priceRange,
     isNewArrival,
+    isOnSale,
     setPriceRange,
     setIsNewArrival,
+    setIsOnSale,
     toggleFilter,
     handleApply,
     isMobile = false,
@@ -116,6 +120,20 @@ const FiltersContent = memo(
           </span>
           <Check
             className={`size-4 transition-opacity ${isNewArrival ? 'opacity-100' : 'opacity-0'}`}
+          />
+        </button>
+        <button
+          type="button"
+          onClick={() => setIsOnSale(!isOnSale)}
+          className="flex items-center justify-between w-full py-2 text-neutral-500 hover:text-black transition-colors"
+        >
+          <span
+            className={`text-base transition-all ${isOnSale ? 'text-black font-bold' : ''}`}
+          >
+            On Sale
+          </span>
+          <Check
+            className={`size-4 transition-opacity ${isOnSale ? 'opacity-100' : 'opacity-0'}`}
           />
         </button>
         {categories.map((cat) => {
@@ -289,6 +307,7 @@ export function ProductFilters({
   const [selectedStyles, setSelectedStyles] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<number[]>([0, 200]);
   const [isNewArrival, setIsNewArrival] = useState<boolean>(false);
+  const [isOnSale, setIsOnSale] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string | null>(null);
 
   useEffect(() => {
@@ -298,6 +317,7 @@ export function ProductFilters({
     setSelectedSizes(ensureArray(params.sizes));
     setSelectedStyles(ensureArray(params.styles));
     setIsNewArrival(params.newArrival === 'true');
+    setIsOnSale(params.onSale === 'true');
     setSearchQuery((params.q as string) || null);
 
     const min = Number(params.minPrice);
@@ -335,6 +355,7 @@ export function ProductFilters({
       minPrice: priceRange[0],
       maxPrice: priceRange[1],
       newArrival: isNewArrival ? 'true' : null,
+      onSale: isOnSale ? 'true' : null,
     };
 
     router.push(
@@ -356,8 +377,10 @@ export function ProductFilters({
     selectedStyles,
     priceRange,
     isNewArrival,
+    isOnSale,
     setPriceRange,
     setIsNewArrival,
+    setIsOnSale,
     toggleFilter,
     handleApply,
   };

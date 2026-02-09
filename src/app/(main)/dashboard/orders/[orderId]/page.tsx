@@ -6,12 +6,23 @@ import {
   Truck,
   XCircle,
 } from 'lucide-react';
+import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import { auth } from '@/lib/auth';
 import prisma from '@/lib/prisma';
+
+export const metadata: Metadata = {
+  title: 'Order Details',
+  description:
+    'View your order details, track shipment status, and see order summary.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 const statusConfig = {
   PENDING: {
@@ -75,7 +86,7 @@ export default async function OrderPage({
   );
 
   return (
-    <main className="max-w-4xl mx-auto p-4 sm:p-6 space-y-6 bg-white text-neutral-900">
+    <div className="max-w-4xl mx-auto p-4 sm:p-6 space-y-6 bg-white text-neutral-900">
       <div className="flex items-center gap-4">
         <Link
           href="/dashboard"
@@ -205,6 +216,6 @@ export default async function OrderPage({
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

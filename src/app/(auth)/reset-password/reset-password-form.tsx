@@ -42,7 +42,7 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
 
   return (
     <div className="flex items-center justify-center min-h-[60vh] px-4">
-      <main className="w-full max-w-md p-6 space-y-6 bg-white rounded-xl border border-neutral-100 shadow-sm">
+      <div className="w-full max-w-md p-6 space-y-6 bg-white rounded-xl border border-neutral-100 shadow-sm">
         <header className="text-center space-y-2">
           <h1 className="text-2xl font-bold tracking-tight text-neutral-900">
             New Password
@@ -84,7 +84,7 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
             </button>
           </div>
         </form>
-      </main>
+      </div>
     </div>
   );
 }

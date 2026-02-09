@@ -2,9 +2,8 @@ import Link from 'next/link';
 
 const navLinks = [
   { href: '/shop', label: 'Shop' },
-  { href: '/on-sale', label: 'On Sale' },
+  { href: '/shop?onSale=true', label: 'On Sale' },
   { href: '/shop?newArrival=true', label: 'New Arrivals' },
-  { href: '/brands', label: 'Brands' },
 ];
 
 const DesktopNav = () => {

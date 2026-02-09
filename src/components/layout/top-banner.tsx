@@ -6,7 +6,7 @@ const TopBanner = async () => {
   const session = await auth.api.getSession({ headers: await headers() });
   if (session) return null;
   return (
-    <div className="flex w-full flex-row justify-center gap-2 text-xs bg-black text-white py-2.25 font-main md:text-sm">
+    <div className="flex w-full flex-row justify-center gap-2 text-xs bg-gray-800/65 text-white py-2.25 font-main md:text-sm">
       <p>Sign up and get 20% off to your first order.</p>
       <Link
         href={'/sign-up'}

@@ -1,8 +1,19 @@
+import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { auth } from '@/lib/auth';
 import prisma from '@/lib/prisma';
 import DashboardClient from './dashboard-client';
+
+export const metadata: Metadata = {
+  title: 'Dashboard',
+  description:
+    'Manage your Shop.co account - view orders, track shipments, and update your profile settings.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default async function DashboardPage() {
   const session = await auth.api.getSession({

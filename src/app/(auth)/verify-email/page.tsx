@@ -1,9 +1,20 @@
 import { MailCheck } from 'lucide-react';
+import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import ResendEmailButton from '@/app/(auth)/verify-email/resend-email-button';
 import { auth } from '@/lib/auth';
+
+export const metadata: Metadata = {
+  title: 'Verify Email',
+  description:
+    'Verify your email address to complete your Shop.co account registration.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default async function VerifyEmailPage() {
   const session = await auth.api.getSession({
@@ -19,7 +30,7 @@ export default async function VerifyEmailPage() {
   }
 
   return (
-    <main className="max-w-md mx-auto my-20 p-6 flex flex-col items-center justify-center text-center space-y-6">
+    <div className="max-w-md mx-auto my-20 p-6 flex flex-col items-center justify-center text-center space-y-6">
       <div className="w-20 h-20 bg-neutral-50 border border-neutral-100 rounded-2xl flex items-center justify-center shadow-sm">
         <MailCheck className="w-10 h-10 text-black" />
       </div>
@@ -47,6 +58,6 @@ export default async function VerifyEmailPage() {
         </p>
         <ResendEmailButton email={session?.user.email} />
       </div>
-    </main>
+    </div>
   );
 }

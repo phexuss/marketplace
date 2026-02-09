@@ -48,7 +48,7 @@ export default function SignUpPage() {
   };
 
   return (
-    <main className="max-w-md mx-auto p-6 space-y-6 text-neutral-900 bg-white ">
+    <div className="max-w-md mx-auto p-6 space-y-6 text-neutral-900 bg-white ">
       <header className="space-y-2">
         <h1 className="text-2xl font-bold tracking-tight">Sign Up</h1>
         <p className="text-sm text-neutral-500">
@@ -133,6 +133,6 @@ export default function SignUpPage() {
           </Link>
         </p>
       </footer>
-    </main>
+    </div>
   );
 }

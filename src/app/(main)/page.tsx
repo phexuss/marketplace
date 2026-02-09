@@ -27,7 +27,7 @@ export default async function Home() {
   ]);
 
   return (
-    <main>
+    <div>
       <Hero />
       <div className="xl:px-25">
         <ProductList
@@ -45,6 +45,6 @@ export default async function Home() {
       <div className="flex xl:px-25 pb-10 xl:pb-20">
         <Separator />
       </div>
-    </main>
+    </div>
   );
 }

@@ -1,6 +1,16 @@
+import type { Metadata } from 'next';
 import AddProductForm from '@/components/admin/add-product-form';
 import { validateSession } from '@/lib/get-session';
 import prisma from '@/lib/prisma';
+
+export const metadata: Metadata = {
+  title: 'Admin Panel',
+  description: 'Shop.co Admin Panel - Manage products, users, and orders.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default async function AdminPage() {
   const session = await validateSession(true, 'admin');

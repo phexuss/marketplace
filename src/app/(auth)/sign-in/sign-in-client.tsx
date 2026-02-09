@@ -70,7 +70,7 @@ export default function SignInPage() {
   }
 
   return (
-    <main className="max-w-md mx-auto p-6 space-y-6 text-neutral-900 bg-white">
+    <div className="max-w-md mx-auto p-6 space-y-6 text-neutral-900 bg-white">
       <header className="space-y-2">
         <h1 className="text-2xl font-bold">Sign In</h1>
         <p className="text-sm text-neutral-500">
@@ -191,6 +191,6 @@ export default function SignInPage() {
           Sign up
         </Link>
       </footer>
-    </main>
+    </div>
   );
 }

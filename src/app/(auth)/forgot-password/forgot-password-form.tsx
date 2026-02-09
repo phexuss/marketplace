@@ -49,7 +49,7 @@ export default function ForgotPasswordForm() {
   };
 
   return (
-    <main className="max-w-md mx-auto p-6 space-y-6 text-neutral-900 bg-white">
+    <div className="max-w-md mx-auto p-6 space-y-6 text-neutral-900 bg-white">
       <header className="space-y-2">
         <Link
           href="/sign-in"
@@ -116,6 +116,6 @@ export default function ForgotPasswordForm() {
           </button>
         </form>
       )}
-    </main>
+    </div>
   );
 }

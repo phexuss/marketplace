@@ -60,7 +60,10 @@ export function BurgerButton() {
             </li>
 
             <li>
-              <Link href="/on-sale" className="block text-lg font-medium py-2">
+              <Link
+                href="/shop?onSale=true"
+                className="block text-lg font-medium py-2"
+              >
                 On Sale
               </Link>
             </li>
@@ -70,11 +73,6 @@ export function BurgerButton() {
                 className="block text-lg font-medium py-2"
               >
                 New Arrivals
-              </Link>
-            </li>
-            <li>
-              <Link href="/brands" className="block text-lg font-medium py-2">
-                Brands
               </Link>
             </li>
           </ul>

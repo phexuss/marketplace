@@ -1,10 +1,21 @@
 import { CheckCircle } from 'lucide-react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { Stripe } from 'stripe';
 import { Button } from '@/components/ui/button';
 import prisma from '@/lib/prisma';
 import { ClearCart } from './clear-cart';
+
+export const metadata: Metadata = {
+  title: 'Order Confirmed',
+  description:
+    'Your order has been confirmed. Thank you for shopping with Shop.co.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 

@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { ProductFilters } from '@/components/products/product-filters';
 import ProductList from '@/components/products/product-list';
@@ -12,6 +13,48 @@ const PRODUCTS_PER_PAGE_MOBILE = 6;
 
 interface ShopPageProps {
   searchParams: Promise<{ [key: string]: string | undefined }>;
+}
+
+export async function generateMetadata({
+  searchParams,
+}: ShopPageProps): Promise<Metadata> {
+  const s = await searchParams;
+
+  const activeStyle = s.styles ? s.styles.split(',')[0] : null;
+  const activeCategory = s.categories ? s.categories.split(',')[0] : null;
+  const searchQuery = s.q;
+
+  let title = 'Shop All Products';
+  let description =
+    'Browse our collection of premium clothing and accessories. Find the perfect style for every occasion.';
+
+  if (searchQuery) {
+    title = `Search: ${searchQuery}`;
+    description = `Search results for "${searchQuery}" - Find the best matching products in our collection.`;
+  } else if (activeStyle && activeCategory) {
+    title = `${activeStyle} ${activeCategory}`;
+    description = `Shop ${activeStyle} ${activeCategory} - Discover our curated selection of premium ${activeStyle.toLowerCase()} ${activeCategory.toLowerCase()}.`;
+  } else if (activeStyle) {
+    title = `${activeStyle} Collection`;
+    description = `Explore our ${activeStyle} collection - Premium clothing designed for your unique style.`;
+  } else if (activeCategory) {
+    title = `${activeCategory}`;
+    description = `Shop ${activeCategory} - Browse our selection of premium ${activeCategory.toLowerCase()}.`;
+  }
+
+  if (s.onSale === 'true') {
+    title = `Sale: ${title}`;
+    description = `${description} Shop now and save!`;
+  }
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title: `${title} | Shop.co`,
+      description,
+    },
+  };
 }
 
 const ShopPage = async ({ searchParams }: ShopPageProps) => {
@@ -123,7 +166,7 @@ const ShopPage = async ({ searchParams }: ShopPageProps) => {
           />
         </aside>
 
-        <main className="flex-1">
+        <div className="flex-1">
           <div className="hidden xl:flex justify-between items-center mb-6">
             <h2 className="uppercase font-bold font-main text-3xl xl:text-4xl text-black">
               {pageTitle}
@@ -135,7 +178,7 @@ const ShopPage = async ({ searchParams }: ShopPageProps) => {
 
           <ProductList products={products} slider={false} />
           <ShopPagination totalPages={totalPages} currentPage={currentPage} />
-        </main>
+        </div>
       </div>
     </div>
   );

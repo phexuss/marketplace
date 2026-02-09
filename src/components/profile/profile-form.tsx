@@ -70,7 +70,7 @@ export default function ProfileForm({
   };
 
   return (
-    <main className="max-w-7xl mx-auto p-4 sm:p-6 space-y-8 bg-white text-neutral-900 overflow-x-hidden">
+    <div className="max-w-7xl mx-auto p-4 sm:p-6 space-y-8 bg-white text-neutral-900 overflow-x-hidden">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-neutral-100 pb-8">
         <div className="space-y-1">
           <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
@@ -250,6 +250,6 @@ export default function ProfileForm({
         </div>
         <ProfileSettings name={user.name} email={user.email} />
       </div>
-    </main>
+    </div>
   );
 }

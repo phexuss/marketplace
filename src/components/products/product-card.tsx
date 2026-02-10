@@ -41,6 +41,7 @@ const ProductCard = ({ product, isPriority }: ProductCardProps) => {
           src={mainImage}
           alt={product.name}
           priority={isPriority}
+          fetchPriority={isPriority ? 'high' : 'auto'}
           fill
           className="object-cover transition-transform duration-300 group-hover:scale-90  scale-80"
           sizes="(max-width: 768px) 45vw, 25vw"

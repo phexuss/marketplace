@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Suspense } from 'react';
 import { BurgerButton } from '@/components/layout/header/burger-btn';
 import DesktopNav from '@/components/layout/header/desktop-nav';
 import HeaderActions from '@/components/layout/header/header-actions';
@@ -19,7 +20,9 @@ const Header = () => {
             </Link>
           </div>
           <DesktopNav />
-          <Search />
+          <Suspense>
+            <Search />
+          </Suspense>
           <HeaderActions />
         </div>
       </div>

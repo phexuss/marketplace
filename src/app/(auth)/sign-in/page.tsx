@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { validateSession } from '@/lib/get-session';
 import SignInClient from './sign-in-client';
 
@@ -15,5 +16,9 @@ export const metadata: Metadata = {
 export default async function SignInPage() {
   await validateSession(false);
 
-  return <SignInClient />;
+  return (
+    <Suspense>
+      <SignInClient />
+    </Suspense>
+  );
 }

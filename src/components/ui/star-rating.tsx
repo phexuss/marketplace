@@ -2,7 +2,7 @@ import { Star } from 'lucide-react';
 
 const StarRating = ({ rating }: { rating: number }) => {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-1.5">
       <div className="flex gap-0.5">
         {[1, 2, 3, 4, 5].map((star) => {
           const isFull = rating >= star;
@@ -22,9 +22,9 @@ const StarRating = ({ rating }: { rating: number }) => {
         })}
       </div>
 
-      <span className="text-sm font-bold text-black flex items-center gap-0.5">
+      <span className="text-sm font-bold text-black whitespace-nowrap">
         {rating.toFixed(1)}
-        <span className="text-neutral-600 font-medium">/ 5</span>
+        <span className="text-neutral-600 font-medium">/5</span>
       </span>
     </div>
   );

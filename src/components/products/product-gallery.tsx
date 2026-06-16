@@ -37,7 +37,7 @@ export default function ProductGallery({ images, name }: ProductGalleryProps) {
             <Image
               src={img}
               fill
-              alt="Thumbnail"
+              alt={`${name} thumbnail`}
               className="object-cover"
               sizes="15vw"
             />

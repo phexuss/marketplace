@@ -450,7 +450,7 @@ export default function AddProductForm({
                         src={img.preview}
                         fill
                         className="object-cover"
-                        alt="Preview"
+                        alt="Product image preview"
                       />
                       <button
                         type="button"

@@ -41,6 +41,11 @@ const CartPage = () => {
 
     const result = await createCheckoutSession(cartPayload);
 
+    if (result.redirectTo) {
+      window.location.href = result.redirectTo;
+      return;
+    }
+
     if (result.error) {
       toast.error(result.error);
       setIsLoading(false);
@@ -122,19 +127,21 @@ const CartPage = () => {
                       ${item.price}
                     </span>
 
-                    <div className="flex items-center gap-2.5 md:gap-4 bg-[#F0EEED] px-4 py-2 rounded-full font-semibold">
+                    <div className="flex items-center gap-3 md:gap-4 bg-[#F0EEED] px-4 py-2 rounded-full font-semibold">
                       <button
                         type="button"
                         onClick={() => updateQuantity(item.cartItemId, -1)}
+                        className="flex items-center justify-center"
                       >
                         <Minus size={16} className="cursor-pointer" />
                       </button>
-                      <span className="text-sm w-2  md:w-4 text-center">
+                      <span className="text-sm w-5 text-center tabular-nums">
                         {item.quantity}
                       </span>
                       <button
                         type="button"
                         onClick={() => updateQuantity(item.cartItemId, 1)}
+                        className="flex items-center justify-center"
                       >
                         <Plus size={16} className="cursor-pointer" />
                       </button>

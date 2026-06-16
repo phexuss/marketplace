@@ -1,12 +1,11 @@
 'use server';
 
-import { headers } from 'next/headers';
 import { Stripe } from 'stripe';
-import { auth } from '@/lib/auth';
+import { buildSignInRedirect, getServerSession } from '@/lib/get-session';
 import prisma from '@/lib/prisma';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2026-01-28.clover',
+  apiVersion: '2026-02-25.clover',
 });
 
 interface CartItem {
@@ -18,12 +17,10 @@ interface CartItem {
 
 export async function createCheckoutSession(items: CartItem[]) {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
+    const session = await getServerSession();
 
     if (!session?.user) {
-      return { error: 'Unauthorized' };
+      return { redirectTo: buildSignInRedirect('/cart') };
     }
 
     const productIds = items.map((item) => item.id);

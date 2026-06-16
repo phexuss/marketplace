@@ -126,7 +126,7 @@ export default function Search() {
 
   return (
     <div className="flex flex-1 min-w-0 md:justify-center md:max-w-2xl md:mx-auto lg:max-w-3xl xl:max-w-4xl">
-      <div className="flex ml-auto xl:hidden">
+      <div className="flex items-center ml-auto xl:hidden">
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <button
@@ -134,7 +134,10 @@ export default function Search() {
               aria-label="Open search"
               className="text-foreground/80 transition-colors hover:text-foreground cursor-pointer"
             >
-              <SearchIcon strokeWidth={1.75} className="size-5" />
+              <SearchIcon
+                strokeWidth={1.75}
+                className="size-5 transition-all duration-300 hover:scale-110 hover:opacity-100 opacity-80"
+              />
             </button>
           </DialogTrigger>
           <DialogContent

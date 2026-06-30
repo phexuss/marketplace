@@ -1,5 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import HeroDescription from '@/components/motion/hero/HeroDescription';
+import HeroLabel from '@/components/motion/hero/HeroLabel';
+import ShopNowButton from '@/components/motion/hero/ShopNowButton';
 import HeroBrands from '@/components/sections/hero/hero-brands';
 import { Button } from '@/components/ui/button';
 
@@ -8,22 +11,9 @@ const Hero = () => {
     <section className="bg-hero-bg overflow-hidden">
       <div className="flex flex-col px-4 pt-10 items-center gap-5 lg:flex-row lg:px-16 lg:pt-0">
         <div className="flex flex-col items-center md:items-start text-center md:text-left lg:flex-1 lg:py-20">
-          <h1 className="text-4xl md:text-6xl font-extrabold font-display leading-tight">
-            FIND CLOTHES THAT MATCHES YOUR STYLE
-          </h1>
-          <p className="text-[#616060] font-normal text-sm md:text-base mt-2 max-w-sm md:max-w-md">
-            Browse through our diverse range of meticulously crafted garments,
-            designed to bring out your individuality and cater to your sense of
-            style.
-          </p>
-          <Link href="/shop">
-            <Button
-              variant="default"
-              className="text-base rounded-full py-6 px-14 mt-6 w-full sm:w-max hover:bg-neutral-800 active:bg-neutral-700 transition-colors cursor-pointer"
-            >
-              Shop Now
-            </Button>
-          </Link>
+          <HeroLabel />
+          <HeroDescription />
+          <ShopNowButton />
 
           <div className="mt-10 grid grid-cols-2 justify-center gap-y-3 md:flex md:flex-wrap md:justify-start md:gap-x-12">
             <div className="relative flex flex-col pr-8">

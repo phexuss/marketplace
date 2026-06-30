@@ -47,7 +47,7 @@ const Hero = () => {
         </div>
       </div>
       <div className="w-full bg-black py-10 md:py-11 -mt-px lg:mt-0">
-        <div className="max-w-360 mx-auto px-4 md:px-16">
+        <div className="w-full md:px-16 overflow-hidden">
           <HeroBrands />
         </div>
       </div>

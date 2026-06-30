@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import ProductCard from '@/components/products/product-card';
 import { Button } from '@/components/ui/button';
 import type { Product } from '@/generated/prisma/client';
 import prisma from '@/lib/prisma';
+import AnimatedProductGrid from '../motion/product-lists/AnimatedProductGrid';
 import { ProductCarousel } from './product-carousel';
 
-interface ProductListProps {
+export interface ProductListProps {
   title?: string;
   limit?: number;
   products?: Product[];
@@ -45,26 +45,24 @@ const ProductList = async ({
         </h2>
       )}
 
+      {/* Мобильная версия */}
       <div className="md:hidden px-4">
         {slider ? (
           <ProductCarousel products={products} />
         ) : (
-          <div className="grid grid-cols-2 gap-4">
-            {products?.map((item, index) => (
-              <ProductCard
-                key={item.id}
-                product={item}
-                isPriority={index < 4}
-              />
-            ))}
-          </div>
+          <AnimatedProductGrid
+            products={products}
+            className="grid grid-cols-2 gap-4"
+          />
         )}
       </div>
 
-      <div className="hidden md:grid md:grid-cols-3 gap-4 lg:gap-5 px-2.5">
-        {products.map((item, index) => (
-          <ProductCard key={item.id} product={item} isPriority={index < 4} />
-        ))}
+      {/* Десктопная версия */}
+      <div className="hidden md:block">
+        <AnimatedProductGrid
+          products={products}
+          className="grid md:grid-cols-3 gap-4 lg:gap-5 px-2.5"
+        />
       </div>
 
       {!initialProducts && (

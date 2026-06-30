@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import HeroDescription from '@/components/motion/hero/HeroDescription';
+import HeroImage from '@/components/motion/hero/HeroImage';
 import HeroLabel from '@/components/motion/hero/HeroLabel';
 import ShopNowButton from '@/components/motion/hero/ShopNowButton';
 import {
@@ -36,14 +37,7 @@ const Hero = () => {
         </div>
 
         <div className="w-full lg:flex-1 lg:self-end">
-          <Image
-            src="/hero.png"
-            alt="Models wearing stylish clothes"
-            width={1000}
-            height={1000}
-            priority
-            className="w-full h-auto lg:ml-auto lg:w-auto lg:max-h-150 xl:max-h-none "
-          />
+          <HeroImage />
         </div>
       </div>
       <div className="w-full bg-black py-10 md:py-11 -mt-px lg:mt-0">

@@ -1,10 +1,13 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import HeroDescription from '@/components/motion/hero/HeroDescription';
 import HeroLabel from '@/components/motion/hero/HeroLabel';
 import ShopNowButton from '@/components/motion/hero/ShopNowButton';
+import {
+  BrandsSpan,
+  CustomersSpan,
+  ProductsSpan,
+} from '@/components/motion/hero/StatsSpans';
 import HeroBrands from '@/components/sections/hero/hero-brands';
-import { Button } from '@/components/ui/button';
 
 const Hero = () => {
   return (
@@ -17,32 +20,17 @@ const Hero = () => {
 
           <div className="mt-10 grid grid-cols-2 justify-center gap-y-3 md:flex md:flex-wrap md:justify-start md:gap-x-12">
             <div className="relative flex flex-col pr-8">
-              <span className="text-2xl md:text-3xl lg:text-[2.5rem] font-bold">
-                200+
-              </span>
-              <span className="text-[#616060] text-xs lg:text-base">
-                International Brands
-              </span>
+              <BrandsSpan />
               <div className="absolute right-0 top-0 h-full w-px bg-black/10 md:hidden" />
             </div>
 
             <div className="flex flex-col pl-8 md:pl-0 md:relative md:pr-12">
-              <span className="text-2xl md:text-3xl font-bold lg:text-[2.5rem]">
-                2,000+
-              </span>
-              <span className="text-[#616060] text-xs lg:text-base">
-                High-Quality Products
-              </span>
+              <ProductsSpan />
               <div className="hidden absolute right-0 top-0 h-full w-px bg-black/10 md:block" />
             </div>
 
             <div className="col-span-2 flex flex-col items-center pt-3 md:col-span-1 md:items-start md:pt-0">
-              <span className="text-2xl md:text-3xl font-bold lg:text-[2.5rem]">
-                30,000+
-              </span>
-              <span className="text-[#616060] text-xs lg:text-base">
-                Happy Customers
-              </span>
+              <CustomersSpan />
             </div>
           </div>
         </div>

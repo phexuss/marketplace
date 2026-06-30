@@ -1,7 +1,6 @@
 'use client';
 import { motion, useMotionValue, useSpring } from 'motion/react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 
 export default function ShopNowButton() {
   const x = useMotionValue(0);

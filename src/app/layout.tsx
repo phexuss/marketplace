@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Encode_Sans_Expanded, Reddit_Sans } from 'next/font/google';
 import NextTopLoader from 'nextjs-toploader';
 import './globals.css';
+import { SmoothScroll } from '@/components/providers/smooth-scroll';
 import { Toaster } from '@/components/ui/sonner';
 
 const mainFont = Reddit_Sans({
@@ -87,23 +88,25 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`${mainFont.variable} ${displayFont.variable} antialiased font-main`}
-      >
-        <NextTopLoader
-          color="#000000"
-          initialPosition={0.08}
-          crawlSpeed={200}
-          height={3}
-          crawl={true}
-          showSpinner={false}
-          easing="ease"
-          speed={200}
-          shadow={false}
-        />
-        {children}
-        <Toaster />
-      </body>
+      <SmoothScroll>
+        <body
+          className={`${mainFont.variable} ${displayFont.variable} antialiased font-main`}
+        >
+          <NextTopLoader
+            color="#000000"
+            initialPosition={0.08}
+            crawlSpeed={200}
+            height={3}
+            crawl={true}
+            showSpinner={false}
+            easing="ease"
+            speed={200}
+            shadow={false}
+          />
+          {children}
+          <Toaster />
+        </body>
+      </SmoothScroll>
     </html>
   );
 }

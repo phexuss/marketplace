@@ -18,7 +18,7 @@ export default function ShopNowButton() {
   return (
     <Link href="/shop">
       <motion.button
-        className="text-base rounded-full bg-neutral-800 py-3.5 px-14 mt-6 w-full sm:w-max hover:bg-neutral-800 active:bg-neutral-700 transition-colors cursor-pointer text-white"
+        className="text-base rounded-full bg-neutral-800 py-3 font-semibold px-14 mt-6 w-full sm:w-max hover:bg-neutral-800 active:bg-neutral-700 transition-colors cursor-pointer text-white"
         onMouseMove={handleMouse}
         onMouseLeave={() => {
           x.set(0);

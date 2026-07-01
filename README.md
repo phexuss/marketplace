@@ -80,18 +80,18 @@ Open http://localhost:3000
 
 Copy `.env.example` to `.env` and fill in values.
 
-| Variable                 |                    Required | Used for                                        | Notes                                                                |
-| ------------------------ | --------------------------: | ----------------------------------------------- | -------------------------------------------------------------------- |
-| `DATABASE_URL`         |                         Yes | Prisma + Postgres                               | Example:`postgresql://user:pass@localhost:5432/db?schema=public`   |
-| `NEXT_PUBLIC_BASE_URL` |                         Yes | Next.js metadata + Stripe redirects             | Must be a valid absolute URL (ex:`http://localhost:3000`)          |
-| `BETTER_AUTH_SECRET`   |                    For auth | Better Auth                                     | Set a long random secret string                                      |
-| `BETTER_AUTH_URL`      |                    For auth | Better Auth                                     | Usually the same as `NEXT_PUBLIC_BASE_URL` locally                 |
-| `RESEND_API_KEY`       |             For email flows | Better Auth email verification + password reset | `src/lib/email.ts` sends via Resend                                |
-| `GOOGLE_CLIENT_ID`     |                    Optional | Google OAuth                                    | Only needed if you enable Google sign-in                             |
-| `GOOGLE_CLIENT_SECRET` |                    Optional | Google OAuth                                    | Only needed if you enable Google sign-in                             |
-| `UPLOADTHING_TOKEN`    |                 For uploads | UploadThing                                     | Needed for the `/api/uploadthing` route                            |
-| `STRIPE_SECRET_KEY`    | For checkout/admin products | Stripe API                                      | Use a test key locally (`sk_test_...`)                             |
-| `ROUTER_AI_API_KEY`    |                    Optional | (Reserved)                                      | Present in `.env.example` but not referenced in `src/` currently |
+| Variable                 |                    Required | Used for                                        | Notes                                                               |
+| ------------------------ | --------------------------: | ----------------------------------------------- | ------------------------------------------------------------------- |
+| `DATABASE_URL`         |                         Yes | Prisma + Postgres                               | Example:`postgresql://user:pass@localhost:5432/db?schema=public`  |
+| `NEXT_PUBLIC_BASE_URL` |                         Yes | Next.js metadata + Stripe redirects             | Must be a valid absolute URL (ex:`http://localhost:3000`)         |
+| `BETTER_AUTH_SECRET`   |                    For auth | Better Auth                                     | Set a long random secret string                                     |
+| `BETTER_AUTH_URL`      |                    For auth | Better Auth                                     | Usually the same as`NEXT_PUBLIC_BASE_URL` locally                 |
+| `RESEND_API_KEY`       |             For email flows | Better Auth email verification + password reset | `src/lib/email.ts` sends via Resend                               |
+| `GOOGLE_CLIENT_ID`     |                    Optional | Google OAuth                                    | Only needed if you enable Google sign-in                            |
+| `GOOGLE_CLIENT_SECRET` |                    Optional | Google OAuth                                    | Only needed if you enable Google sign-in                            |
+| `UPLOADTHING_TOKEN`    |                 For uploads | UploadThing                                     | Needed for the`/api/uploadthing` route                            |
+| `STRIPE_SECRET_KEY`    | For checkout/admin products | Stripe API                                      | Use a test key locally (`sk_test_...`)                            |
+| `ROUTER_AI_API_KEY`    |                    Optional | (Reserved)                                      | Present in`.env.example` but not referenced in `src/` currently |
 
 ## Database (Prisma)
 
@@ -158,3 +158,57 @@ NEXT_PUBLIC_BASE_URL=http://localhost:3000
 ### Resend email errors
 
 `src/lib/email.ts` sends from `noreply@phexuss.dev`. In Resend, you must verify the domain/sender or change the `from` address to something your Resend account is allowed to send.
+
+## Live Demo
+
+🚀 **Try it yourself!** The project is deployed and available at: [marketplace.phexuss.dev](https://marketplace.phexuss.dev/)
+
+**Important:** This is a **test/demo project** for showcasing functionality — no real products are sold, and no real payments are processed.
+
+### Testing Checkout
+
+The site uses **Stripe Test API**, so you can safely test the checkout flow with Stripe's test card numbers:
+
+- **Test card:** `4242 4242 4242 4242`
+- **Any future expiration date** (e.g., `12/34`)
+- **Any 3-digit CVC** (e.g., `123`)
+
+📘 Full list of test cards: [Stripe Testing Documentation](https://docs.stripe.com/testing)
+
+Feel free to:
+
+- Sign up and log in
+- Browse products
+- Add items to cart
+- Complete a test checkout with Stripe test cards
+- Explore the dashboard
+
+### Screenshots
+
+<!-- TODO: Add homepage screenshot -->
+![Homepage](./docs/screenshots/homepage.png)
+
+<!-- TODO: Add product page screenshot -->
+![Product Page](./docs/screenshots/product-page.png)
+
+<!-- TODO: Add checkout screenshot -->
+![Checkout](./docs/screenshots/checkout.png)
+
+<!-- TODO: Add dashboard screenshot -->
+![Dashboard](./docs/screenshots/dashboard.png)
+
+### Admin Panel
+
+The admin panel is available only when running locally (not deployed to production for security).
+
+To access it locally:
+1. Update your user's `role` field to `"admin"` in the database
+2. Navigate to `/admin`
+
+<!-- TODO: Add admin panel screenshot -->
+![Admin Panel](./docs/screenshots/admin-panel.png)
+
+Admin features:
+- Create, edit, and delete products
+- Manage product images via UploadThing
+- Configure categories, styles, colors, and sizes

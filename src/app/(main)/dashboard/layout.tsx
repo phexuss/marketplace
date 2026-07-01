@@ -1,12 +1,12 @@
 import { redirect } from 'next/navigation';
-import { validateSession } from '@/lib/get-session';
+import { getServerSession } from '@/lib/get-session';
 
 export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await validateSession(true);
+  const session = await getServerSession();
 
   if (!session) {
     redirect('/sign-in');

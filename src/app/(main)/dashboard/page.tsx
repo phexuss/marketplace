@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
-import { headers } from 'next/headers';
-import { redirect } from 'next/navigation';
-import { auth } from '@/lib/auth';
+import { getServerSession } from '@/lib/get-session';
 import prisma from '@/lib/prisma';
 import DashboardClient from './dashboard-client';
 
@@ -16,12 +14,10 @@ export const metadata: Metadata = {
 };
 
 export default async function DashboardPage() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await getServerSession();
 
   if (!session?.user) {
-    redirect('/sign-in');
+    return null;
   }
 
   const totalOrders = await prisma.order.count({

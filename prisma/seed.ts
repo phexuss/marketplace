@@ -4,21 +4,19 @@ import { PrismaClient } from '../src/generated/prisma/client';
 import 'dotenv/config';
 import slugify from 'slugify';
 
-// 1. Настройка адаптера (Обязательно для Prisma v7 без Accelerate)
+// Initialize Prisma adapter for PostgreSQL
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 const adapter = new PrismaPg(pool);
 
-// 2. Инициализация клиента с адаптером
 const prisma = new PrismaClient({
   adapter,
   log: ['query', 'error'],
 });
 
 async function main() {
-  console.log('🚀 Начинаем процесс сидинга (Prisma v7 + Adapters)...');
+  console.log('Starting seed process (Prisma v7 + Adapters)...');
 
-  // 1. Очистка базы (в порядке, учитывающем связи)
-  // Удаляем в обратном порядке, чтобы не нарушить целостность
+  // Clear database tables in reverse order to prevent foreign key constraint violations
   await prisma.review.deleteMany();
   await prisma.orderItem.deleteMany();
   await prisma.product.deleteMany();
@@ -27,11 +25,14 @@ async function main() {
   await prisma.color.deleteMany();
   await prisma.size.deleteMany();
 
-  console.log('🧹 База очищена');
+  console.log('Database cleared');
 
-  // 2. Подготовка справочников
+  // You can customize the initial categories, styles, colors and sizes here
+
   const categories = ['T-shirts', 'Shorts', 'Shirts', 'Hoodie', 'Jeans'];
   const styles = ['Casual', 'Formal', 'Party', 'Gym'];
+
+  // Note: you can change or add new colors with hex codes here
   const colorData = [
     { name: 'Green', hex: '#00C12B' },
     { name: 'Red', hex: '#F50606' },
@@ -42,7 +43,6 @@ async function main() {
   ];
   const sizeNames = ['XX-Small', 'Small', 'Medium', 'Large', 'X-Large'];
 
-  // 3. Создание записей (используем create, так как мы почистили базу)
   const createdCats = await Promise.all(
     categories.map((name) => prisma.category.create({ data: { name } })),
   );
@@ -59,12 +59,10 @@ async function main() {
     sizeNames.map((name) => prisma.size.create({ data: { name } })),
   );
 
-  // 4. Генерация товаров (по 5 на категорию)
-  console.log('📦 Генерация товаров...');
+  console.log('Generating products...');
 
   for (const cat of createdCats) {
     for (let i = 1; i <= 5; i++) {
-      // Генерируем красивое имя
       const suffixes = ['Alpha', 'Beta', 'Premium', 'Classic', 'Urban'];
       const baseName = cat.name.endsWith('s')
         ? cat.name.slice(0, -1)
@@ -85,7 +83,7 @@ async function main() {
           oldPrice: price + 30,
           discount: 15,
           stock: Math.floor(Math.random() * 100),
-          rating: parseFloat((Math.random() * (5 - 3.5) + 3.5).toFixed(1)), // Рейтинг 3.5 - 5.0
+          rating: parseFloat((Math.random() * (5 - 3.5) + 3.5).toFixed(1)),
           images: [
             `https://picsum.photos/seed/${name}-1/400/500`,
             `https://picsum.photos/seed/${name}-2/400/500`,
@@ -93,7 +91,6 @@ async function main() {
           categoryId: cat.id,
           styleId:
             createdStyles[Math.floor(Math.random() * createdStyles.length)].id,
-          // Привязываем случайные цвета и размеры
           colors: {
             connect: createdColors
               .sort(() => 0.5 - Math.random())
@@ -111,12 +108,12 @@ async function main() {
     }
   }
 
-  console.log('✅ Сидинг успешно завершен! Создано 25 товаров.');
+  console.log('Seed completed successfully! Created 25 products.');
 }
 
 main()
   .catch((e) => {
-    console.error('❌ Ошибка при сидинге:', e);
+    console.error('Seed error:', e);
     process.exit(1);
   })
   .finally(async () => {

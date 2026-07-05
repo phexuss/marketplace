@@ -115,6 +115,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               key={color.id}
               type="button"
               onClick={() => setSelectedColor(color.name)}
+              aria-label={`Choose color: ${color.name}`}
               className={`w-10 h-10 rounded-full border-2 transition-all p-0.5 ${
                 selectedColor === color.name
                   ? 'border-black'
@@ -124,6 +125,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               <div
                 className="w-full h-full rounded-full"
                 style={{ backgroundColor: color.hex }}
+                aria-hidden="true"
               />
             </button>
           ))}

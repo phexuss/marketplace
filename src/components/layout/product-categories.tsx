@@ -41,7 +41,8 @@ const ProductCategories = () => {
               <div className="absolute inset-0">
                 <Image
                   src={category.image}
-                  alt={category.name}
+                  alt=""
+                  aria-hidden="true"
                   fill
                   className="object-cover object-top transition-transform duration-300 group-hover:scale-105"
                 />
@@ -63,7 +64,8 @@ const ProductCategories = () => {
               <div className="absolute inset-0">
                 <Image
                   src={category.image}
-                  alt={category.name}
+                  alt=""
+                  aria-hidden="true"
                   fill
                   className="object-cover object-top transition-transform duration-300 group-hover:scale-105"
                 />

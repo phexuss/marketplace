@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 import StarRating from '@/components/ui/star-rating';
 import type { Category, Color, Product, Size } from '@/generated/prisma/client';
+import { flyToCart } from '@/lib/fly-to-cart';
 import { useCartStore } from '@/store/cart-store';
 import { useWishlistStore } from '@/store/wishlist-store';
 
@@ -51,7 +52,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     }
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!selectedColor || !selectedSize) {
       toast.info('Choose size and color first');
       return;
@@ -68,6 +69,8 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       size: selectedSize,
       quantity: 1,
     });
+
+    flyToCart(product.images[0], e.currentTarget);
     toast.success(`Added ${product.name} (${selectedSize}) to cart`);
   };
 

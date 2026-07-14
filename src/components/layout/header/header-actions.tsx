@@ -12,6 +12,7 @@ const HeaderActions = () => {
     <div className="flex items-center gap-1 shrink-0">
       <Link
         href="/cart"
+        data-cart-target="true"
         aria-label="Shopping cart"
         className="relative p-2 text-foreground/80 transition-colors hover:text-foreground group"
       >
